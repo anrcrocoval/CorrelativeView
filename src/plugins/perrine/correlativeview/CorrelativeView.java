@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import Jama.Matrix;
 import icy.canvas.IcyCanvas;
 import icy.common.exception.UnsupportedFormatException;
 import icy.file.Loader;
