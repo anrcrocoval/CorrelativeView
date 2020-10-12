@@ -11,10 +11,13 @@ import java.util.ArrayList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import Jama.Matrix;
 import icy.canvas.IcyCanvas;
 import icy.common.exception.UnsupportedFormatException;
 import icy.file.Loader;
 import icy.gui.dialog.LoaderDialog;
+import icy.gui.dialog.MessageDialog;
+import icy.gui.frame.progress.ToolTipFrame;
 import icy.gui.viewer.Viewer;
 import icy.image.IcyBufferedImage;
 import icy.image.IcyBufferedImageUtil;
@@ -32,6 +35,19 @@ public class CorrelativeView extends Plugin implements PluginCanvas {
 	
 	@Override
 	public IcyCanvas createCanvas(Viewer viewer) {
+		new ToolTipFrame(
+				"<html>"
+						+ "<br> After having used <b>ec-clem</b>:"
+						+"<br> This open image is the \"target\" image: "
+						+"<br> you will now display the source image on the source image, AT FULL RESOLUTION."
+						+ "<br> <li> First select your \"source\" image in the dialog</li> "
+						+ "<br> <li> Then select the transformation .xml generated when using ec-clem (source to target)</li> "
+						+ "<br> <li> In the layer panel, you can change the opacity of the target image layer, "
+						+ "<br> which will balance the opacity of the source as well</li> "
+						+ "<br> Note that you can use <b>ecClemTransformationSchemaInverter</b>"
+						+ "<br> to generate this transform if you do it in the reverse way"
+						+ "</html>","startmessagecorview"
+					);
 		LoaderDialog dialog = new LoaderDialog(false);
 	
 		dialog.setDialogTitle("Select the correlated image");
@@ -51,44 +67,34 @@ public class CorrelativeView extends Plugin implements PluginCanvas {
 		} catch (UnsupportedFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			 MessageDialog.showDialog("image format not supported");
+			 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			MessageDialog.showDialog("no image selected");
 		}
 		
 		final Document document = XMLUtil.loadDocument( pathtransfo);
-		Element root = XMLUtil.getRootElement(document);
-		ArrayList<Element> transfoElementArrayList = XMLUtil.getElements(root, "transformation");
+
 		
 		
-		double ss= 1.0;
-		double st=1.0;
-		ArrayList<Element> infoimages=XMLUtil.getElements(transfoElementArrayList.get(0),"sequenceSize");
-		for (Element info:infoimages) {
-			String type=XMLUtil.getAttributeValue(info, "type","0");
-			ArrayList<Element> dim=XMLUtil.getElements(info,"dimensionSize");
-			if (type.compareToIgnoreCase("source")==0)
-    			{
-				
-				ss=XMLUtil.getAttributeDoubleValue(dim.get(0), "pixelSize",1); //TO BE CHANGED when refactored , not checking now that this is X
-    			}
-			else //should be target
-			{
-				st=XMLUtil.getAttributeDoubleValue(dim.get(0), "pixelSize",1); //TO BE CHANGED when refactored , not checking now that this is X
-			}
-		}
+		double ss= 17.0/1000;
+		double st=62.5/1000;
+
     	
     	
-Element transfo=XMLUtil.getElements(transfoElementArrayList.get(0),"MatrixTransformation").get(0);
+		Element transfo=XMLUtil.getElements(document.getDocumentElement(),"MatrixTransformation").get(0);
 		
 		double[][] m = new double[4][4];
 		for (int i=0;i<4;i++)
     	{
     		for(int j=0;j<4;j++) {
     			m[i][j] = XMLUtil.getAttributeDoubleValue(transfo, "m"+String.valueOf(i)+String.valueOf(j),0);
-    			
+    			System.out.println(" ypos"+i+" " +j+" value "+m[i][j]);
     		}
     	}
+		
 		return new TestVisu(viewer,correlatedimagebuf, m, ss, st);
 	}
 }

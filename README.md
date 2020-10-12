@@ -11,5 +11,5 @@ The principle is to change only the "camera" and "screen" position of the source
 * You can play on the transparency mixing in the overlay panel.
 
 
-Tip: you can alwys inverse a transformation schema using invert transformation schema in ec-clem in order to compute the inverse transforme 
+Tip: you can always inverse a transformation schema using invert transformation schema in ec-clem in order to compute the inverse transforme 
 if you need one image to be the source instead of target.

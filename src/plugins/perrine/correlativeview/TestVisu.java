@@ -1557,12 +1557,12 @@ public class TestVisu extends IcyCanvas2D implements ROITaskListener
                 
               
                 Tx.setTransform(matrix.get(0, 0),matrix.get(1, 0), matrix.get(0, 1), matrix.get(1, 1),ttrx, ttry);
-                try {
+                /*try {
 					Tx=Tx.createInverse();
 				} catch (NoninvertibleTransformException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
                 
                 
   
