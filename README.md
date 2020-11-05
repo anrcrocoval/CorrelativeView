@@ -17,8 +17,8 @@ Both official icy ec-clem and this test version can coexist: call the old versio
 + use the next openned dialog to load the transformation file
 + You can play on the transparency mixing in the overlay panel.
 
-
+## Demo video:
+https://youtu.be/NDWa-sKOGtw 
 Tip: you can always inverse a transformation schema using invert transformation schema in ec-clem in order to compute the inverse transforme 
 if you need one image to be the source instead of target.
-Demo video:
-https://youtu.be/NDWa-sKOGtw
+
