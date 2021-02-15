@@ -374,7 +374,7 @@ public class TestVisu extends IcyCanvas2D implements ROITaskListener
 
             final double destAngle;
 
-            // shift action --> limit to 45° rotation
+            // shift action --> limit to 45 degree rotation
             if (EventUtil.isShiftDown(e))
                 destAngle = Math.rint((mapStartRotationZ + angle) * (8d / (2 * Math.PI))) * ((2 * Math.PI) / 8d);
             else
@@ -1036,7 +1036,7 @@ public class TestVisu extends IcyCanvas2D implements ROITaskListener
 
             final double destAngle;
 
-            // shift action --> limit to 45° rotation
+            // shift action --> limit to 45ï¿½ rotation
             if (shift)
                 destAngle = Math.rint((startRotationZ + angle) * (8d / (2 * Math.PI))) * ((2 * Math.PI) / 8d);
             else
@@ -3287,7 +3287,7 @@ public class TestVisu extends IcyCanvas2D implements ROITaskListener
                     });
 
                     // and in canvas
-                    canvasView.setRotationMessage("Rotation : " + rotInfo + " °", 500);
+                    canvasView.setRotationMessage("Rotation : " + rotInfo + " ï¿½", 500);
                 }
 
                 // refresh canvas
