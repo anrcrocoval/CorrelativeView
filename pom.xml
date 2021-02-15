@@ -12,8 +12,8 @@
     </parent>
 
     <!-- Project Information -->
-    <artifactId>ecclemautofinder</artifactId>
-    <version>2.0.0.0</version>
+    <artifactId>CorrelativeView</artifactId>
+    <version>1.0.0.0</version>
     
     <packaging>jar</packaging>
 
@@ -85,9 +85,11 @@
             <groupId>org.bioimageanalysis.icy</groupId>
             <artifactId>ezplug</artifactId>
         </dependency>
-        
-       
-		
+        <dependency>
+       <groupId>gov.nist.math</groupId>
+            <artifactId>jama</artifactId>
+            <version>1.0.3</version>
+		</dependency>
     </dependencies>
     
     
