@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import Jama.Matrix;
+
 import icy.canvas.IcyCanvas;
 import icy.common.exception.UnsupportedFormatException;
 import icy.file.Loader;
@@ -23,8 +23,10 @@ import icy.image.IcyBufferedImage;
 import icy.image.IcyBufferedImageUtil;
 import icy.plugin.abstract_.Plugin;
 import icy.plugin.interface_.PluginCanvas;
+
 import icy.util.XMLUtil;
 import plugins.perrine.correlativeview.TestVisu;
+
 
 public class CorrelativeView extends Plugin implements PluginCanvas {
 
@@ -51,12 +53,13 @@ public class CorrelativeView extends Plugin implements PluginCanvas {
 		LoaderDialog dialog = new LoaderDialog(false);
 	
 		dialog.setDialogTitle("Select the correlated image");
-		
+		dialog.updateUI();
 				
 		File path=dialog.getSelectedFile();
 		
 		LoaderDialog dialogtransfo = new LoaderDialog(false);
 		dialogtransfo.setDialogTitle("Select the transfo from correlated image to opened image");
+		dialog.updateUI();
 		File pathtransfo=dialogtransfo.getSelectedFile();
 		
 		IcyBufferedImage image = null;
@@ -79,23 +82,46 @@ public class CorrelativeView extends Plugin implements PluginCanvas {
 
 		
 		
-		double ss= 17.0/1000;
-		double st=62.5/1000;
-
+		
     	
     	
 		Element transfo=XMLUtil.getElements(document.getDocumentElement(),"MatrixTransformation").get(0);
-		
+		Element transfoinfo=XMLUtil.getElements(document.getDocumentElement(),"transformation").get(0);
+		 ArrayList<Element> sequenceSizeElements = XMLUtil.getElements(transfoinfo, "sequenceSize");
+	        if(sequenceSizeElements.size() != 2) {
+	            throw new RuntimeException("Element should contain exactly 2 sequenceSize");
+	        }
+	        double sourceSequenceSize = readSequenceSize(sequenceSizeElements.get(0));
+	        double targetSequenceSize = readSequenceSize(sequenceSizeElements.get(1));
+	       
+	        if(sequenceSizeElements.get(0).getAttribute("type").equals("target")) {
+	            double tmp=sourceSequenceSize;
+	            sourceSequenceSize=targetSequenceSize;
+	            targetSequenceSize=tmp;
+	        } 
 		double[][] m = new double[4][4];
 		for (int i=0;i<4;i++)
     	{
     		for(int j=0;j<4;j++) {
     			m[i][j] = XMLUtil.getAttributeDoubleValue(transfo, "m"+String.valueOf(i)+String.valueOf(j),0);
-    			System.out.println(" ypos"+i+" " +j+" value "+m[i][j]);
+    			//System.out.println(" ypos"+i+" " +j+" value "+m[i][j]);
     		}
     	}
 		
-		return new TestVisu(viewer,correlatedimagebuf, m, ss, st);
+		return new TestVisu(viewer,correlatedimagebuf, m, sourceSequenceSize, targetSequenceSize);
+	}
+
+	private double readSequenceSize(Element element) {
+		double pixelsizeum=1.0;
+		 ArrayList<Element> elements = XMLUtil.getElements(element);
+	        for(Element dimension : elements) {
+	           
+	                String dim = (dimension.getAttribute("name"));
+	                if (dim.compareTo("X")==0) 
+	                	pixelsizeum=Double.parseDouble(dimension.getAttribute("pixelSize"));
+	           
+	        }
+		return pixelsizeum;
 	}
 }
 
