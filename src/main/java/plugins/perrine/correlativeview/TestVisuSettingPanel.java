@@ -191,16 +191,7 @@ public class TestVisuSettingPanel extends JPanel
 
     private void initialize()
     {
-        // subPanel.add(GuiUtil.createLineBoxPanel(Box.createHorizontalStrut(4),
-        // GuiUtil.createFixedWidthBoldLabel("Zoom", 70), zoomComboBox,
-        // GuiUtil.createFixedWidthBoldLabel("%", 20), Box.createHorizontalGlue(), zoomMinus,
-        // Box.createHorizontalStrut(4), zoomPlus, Box.createHorizontalStrut(4)));
-        // subPanel.add(Box.createVerticalStrut(4));
-        // subPanel.add(GuiUtil.createLineBoxPanel(Box.createHorizontalStrut(4),
-        // GuiUtil.createFixedWidthBoldLabel("Rotation", 70), rotationComboBox,
-        // GuiUtil.createFixedWidthBoldLabel("°", 20), Box.createHorizontalGlue(), rotateUnclock,
-        // Box.createHorizontalStrut(4), rotateClock, Box.createHorizontalStrut(4)));
-
+        
         setLayout(new BorderLayout());
 
         JPanel panel = new JPanel();
@@ -281,7 +272,7 @@ public class TestVisuSettingPanel extends JPanel
         gbc_rotationComboBox.gridy = 1;
         panel.add(rotationComboBox, gbc_rotationComboBox);
 
-        JLabel label_4 = new JLabel("°");
+        JLabel label_4 = new JLabel("ï¿½");
         label_4.setFont(new Font("Tahoma", Font.BOLD, 11));
         GridBagConstraints gbc_label_4 = new GridBagConstraints();
         gbc_label_4.anchor = GridBagConstraints.WEST;
