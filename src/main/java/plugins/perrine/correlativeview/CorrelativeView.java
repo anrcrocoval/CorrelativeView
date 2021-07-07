@@ -43,7 +43,7 @@ public class CorrelativeView extends Plugin implements PluginCanvas {
 						+"<br> This open image is the \"target\" image: "
 						+"<br> you will now display the source image on the source image, AT FULL RESOLUTION."
 						+ "<br> <li> First select your \"source\" image in the dialog</li> "
-						+ "<br> <li> Then select the transformation .xml generated when using ec-clem (source to target)</li> "
+						+ "<br> <li> Then select the transformation .xml NOT THE \"SCHEMA \" generated when using ec-clem (source to target)</li> "
 						+ "<br> <li> In the layer panel, you can change the opacity of the target image layer, "
 						+ "<br> which will balance the opacity of the source as well</li> "
 						+ "<br> Note that you can use <b>ecClemTransformationSchemaInverter</b>"

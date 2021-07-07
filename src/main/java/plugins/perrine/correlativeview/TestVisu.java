@@ -2164,6 +2164,7 @@ public class TestVisu extends IcyCanvas2D implements ROITaskListener
     double scales;
     double scalet;
     Matrix matrix;
+ 
     public TestVisu(Viewer viewer, BufferedImage correlatedimagebuf, double[][] m, double ss, double st)
     {
         super(viewer);
