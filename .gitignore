@@ -4,5 +4,5 @@
 *.project
 /bin/
 /target/
-/binary/
+
 lib/icy
